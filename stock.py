@@ -4,11 +4,12 @@ import smtplib
 import time
 ticker = input("Enter stock ticker symbol")
 advticker = ticker.replace(' ' , '')
-wantedprice = input("What price do you want the stock at?")
+wantedprice = input("What price do you want to be notified at?")
 numwantedprice = float(wantedprice)
+ran = input("Do you want to be notified when it goes up or down?")
+rann = ran.replace(' ', '')
+url = 'https://markets.businessinsider.com/stocks/' + advticker + '-stock'
 def stockfunction():
- url = 'https://markets.businessinsider.com/stocks/' + advticker + '-stock'
- print(url)
  print(url)
  res = requests.get(url)
  soup = BeautifulSoup(res.text, 'html.parser')
@@ -16,8 +17,12 @@ def stockfunction():
  #print(priceholder)
  numpriceholder = float(priceholder)
  print(numpriceholder)
- if (numwantedprice >= numpriceholder) :
+ if (rann == "up") :
+  if (numwantedprice <= numpriceholder) :
     email_send()
+ if (rann == "down") :
+  if (numwantedprice >= numpriceholder):
+            email_send()
 
 
 def email_send():
@@ -28,8 +33,8 @@ def email_send():
 
      server.login('tanavc01@gmail.com', 'ohifeaeyzywgdnev')
 
-     subject = 'stock price is in your range!'
-     body = 'here is the link: '
+     subject = 'stock price has met your goal!'
+     body = 'here is the link: ' + url
      msg = f"Subject: {subject}\n\n{body}"
 
      server.sendmail(
@@ -45,3 +50,9 @@ def email_send():
 while(True):
     stockfunction()
     time.sleep(60*60)
+
+
+
+
+
+
