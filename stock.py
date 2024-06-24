@@ -31,7 +31,7 @@ def email_send():
      server.starttls()
      server.ehlo()
 
-     server.login('tanavc01@gmail.com', 'ohifeaeyzywgdnev')
+     server.login('example@gmail.com', 'password')
 
      subject = 'stock price has met your goal!'
      body = 'here is the link: ' + url
